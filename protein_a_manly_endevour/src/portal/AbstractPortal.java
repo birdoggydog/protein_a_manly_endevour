@@ -1,13 +1,13 @@
 package portal;
 
+import event_handler.InteractionEvent;
 import game_world.GameWorld;
 
 public class AbstractPortal implements Portal{
-	// do yo shit niggaaa
 	// reference to gameWorld
 	GameWorld game;
 	@Override
-	public boolean acceptInteraction() {
+	public boolean acceptInteraction(InteractionEvent e) {
 		// TODO Auto-generated method stub
 		return false;
 	}
