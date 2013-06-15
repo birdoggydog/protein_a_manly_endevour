@@ -1,6 +1,5 @@
 package map;
 
-import java.util.ArrayDeque;
 import java.util.Stack;
 
 public class RandomMazeMap extends Map {

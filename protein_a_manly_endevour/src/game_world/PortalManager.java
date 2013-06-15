@@ -8,7 +8,7 @@ public class PortalManager {
      // maintain some lists of portals, provice getters, adders etc...
     //
 	
-	private ArrayList portalList = new ArrayList<Portal>();
+	private ArrayList<Portal> portalList = new ArrayList<Portal>();
 	public PortalManager() {
 		
 	}

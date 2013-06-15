@@ -57,19 +57,23 @@ public abstract class Map {
 
 		return  walls.toArray(new Location[walls.size()]);
 	}
+
+	public Location[] getSpaces(Location[] adj) { 
+		ArrayList<Location> spaces = new ArrayList<Location>();
+		for(Location x : adj) {
+			if(x!= null && x instanceof Space) {
+					spaces.add(x);				
+			}
+		}
+
+		return  spaces.toArray(new Location[spaces.size()]);
+	}
+
 	public Location[][] getMap() {
 		return map;
 	}
 	public Portal[][] getCopyMap() {
-		
-		Portal[][] funkytown = new Portal[height][width];
-		for (int i = 0; i<height; i++) {
-			for (int j = 0; j<width; j++) {
-				funkytown[i][j]= map[i][j];
-			}
-		}
-		return funkytown;
-
+		return map.clone();
 
 	}
 	public  Location getPlayerStart() {
