@@ -18,8 +18,8 @@ public class InteractionEvent {
 		 */
 		public InteractionEvent(int type, MouseEvent m, KeyEvent e) {
 			this.type = type;
-			MouseEvent me = m;
-			KeyEvent ke = e;
+			me = m;
+			ke = e;
 			
 		}
 		
