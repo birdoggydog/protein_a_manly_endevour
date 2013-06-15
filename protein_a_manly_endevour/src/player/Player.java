@@ -13,6 +13,7 @@ public class Player extends AbstractPortal {
 	int fat;
 	int environment;
 	public Player(int x, int y){
+		
 		this.x = x;
 		this.y = y;
 	}

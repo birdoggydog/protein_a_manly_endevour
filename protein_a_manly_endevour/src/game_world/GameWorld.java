@@ -41,7 +41,7 @@ public class GameWorld implements KeyListener, MouseListener {
 		portalManager = new PortalManager();
 		map = new RandomMazeMap(30, 30, 10, 10);
 		Location pS = map.getPlayerStart();
-		player = new Player(pS.getX(), pS.getY());
+		player = new Player(pS.getY(), pS.getX());
 		r = new MapThread();
 		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
 		Thread t= new Thread(r);

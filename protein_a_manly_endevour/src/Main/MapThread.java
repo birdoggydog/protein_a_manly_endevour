@@ -35,7 +35,7 @@ public class MapThread implements Runnable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					printMap();
+					//printMap();
 					shouldDraw = false;
 				}
 			}
@@ -51,12 +51,14 @@ public class MapThread implements Runnable {
 					} else if (map[i][j] instanceof Space){
 						System.out.print(space);		
 					} else if(map[i][j] instanceof Player) {
-						System.out.println(player);
+						System.out.print(player);
 					}
 				} 
 			}
 			System.out.println();
 		}
+		System.out.println();
+
 	}
 
 
