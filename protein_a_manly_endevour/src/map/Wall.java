@@ -1,8 +1,11 @@
 package map;
 
 public class Wall extends Location{
-	public Wall() {
-		super();
+	/**
+	 *  a location which is not passable
+	 */
+	public Wall(int x, int y) {
+		super(x, y);
 		passable = true;
 	}
 }

@@ -5,6 +5,8 @@ import game_world.GameWorld;
 
 public class AbstractPortal implements Portal{
 	// reference to gameWorld
+	int x;
+	int y;
 	GameWorld game;
 	@Override
 	public boolean acceptInteraction(InteractionEvent e) {
@@ -12,9 +14,14 @@ public class AbstractPortal implements Portal{
 		return false;
 	}
 	
-	void setGameWorld(GameWorld game) {
+	void setGameWorld(GameWorld game, int x, int y) {
 		this.game = game;
 	}
 
-	
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
 }

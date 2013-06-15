@@ -11,5 +11,9 @@ public interface Portal {
 	    * location? < -mouse?
 	    * key code? < - keybarod, allow multiple interactions?
 	    */);
+
+	int getY();
+
+	int getX();
 	
 }

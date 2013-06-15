@@ -3,17 +3,24 @@ package event_handler;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public abstract class InteractionEvent {
+public class InteractionEvent {
 
 		public static int MOUSE=1;
 		public static int KYB = 0;
 		private MouseEvent me;
 		private KeyEvent ke;
 		private int type;
-		public InteractionEvent(int t, MouseEvent m, KeyEvent e) {
-			type = t;
+		/**
+		 * 
+		 * @param type type of event which triggered this
+		 * @param m - the mouse event to handle
+		 * @param e  - the key event too handle
+		 */
+		public InteractionEvent(int type, MouseEvent m, KeyEvent e) {
+			this.type = type;
 			MouseEvent me = m;
 			KeyEvent ke = e;
+			
 		}
 		
 		public MouseEvent getMouseEvent(){
