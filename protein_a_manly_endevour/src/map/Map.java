@@ -13,9 +13,9 @@ public abstract class Map {
 	int portal_density;
 	ArrayList<Portal> portals;
 	Location[][] map;
-	
+
 	ArrayList<Space> spaces;
-	
+
 	public Map(int wid, int hei, int spaDen, int porDen) {
 		width = wid;
 		height=hei;
@@ -62,7 +62,7 @@ public abstract class Map {
 		ArrayList<Location> walls = new ArrayList<Location>();
 		for(Location x : adj) {
 			if(x!= null && x instanceof Wall) {
-					walls.add(x);				
+				walls.add(x);				
 			}
 		}
 
@@ -73,7 +73,7 @@ public abstract class Map {
 		ArrayList<Location> spaces = new ArrayList<Location>();
 		for(Location x : adj) {
 			if(x!= null && x instanceof Space) {
-					spaces.add(x);				
+				spaces.add(x);				
 			}
 		}
 
@@ -87,16 +87,21 @@ public abstract class Map {
 	 * create a deep copy of the map for manipulation.
 	 * @return
 	 */
-	public Portal[][] getCopyMap() {
-		return map.clone();
-
+	public Portal[][] getCopyMap() {		
+		Portal[][] funkytown = new Portal[height][width];
+		for (int i = 0; i<height; i++) {
+			for (int j = 0; j<width; j++) {
+				funkytown[i][j]= map[i][j];
+			}
+		}
+		return funkytown;
 	}
 	/**
 	 * generate a start location for the player.
 	 * @return
 	 */
 	public  Location getPlayerStart() {
-		
+
 		Location playerStart = spaces.get(rand.nextInt(spaces.size()));
 		return playerStart;
 	}

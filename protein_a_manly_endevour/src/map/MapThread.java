@@ -1,5 +1,6 @@
 package map;
 
+import display.Graphics;
 import player.Player;
 import portal.Portal;
 
@@ -22,9 +23,10 @@ public class MapThread implements Runnable {
 
 	@Override
 	public void run() {
+		Graphics g = new Graphics(map);
 		while(true) {
 			if(this.map!= null) {
-//		/		printMap();
+				//		/		printMap();
 				if(!shouldDraw) {
 					try {
 						Thread.sleep(1000);
@@ -34,32 +36,12 @@ public class MapThread implements Runnable {
 					}
 					shouldDraw = true;
 				} else {
-					printMap();
+					g.processDisplay(map);
 					shouldDraw = false;
-					
+
 				}
 			}
 		}
 	}
-
-	public void printMap() {
-		for (int i = 0; i<map.length; i++) {
-			for (int j = 0; j<map[0].length; j++) {
-				if(map[i][j]!= null) {
-					if(map[i][j] instanceof Wall) {
-						System.out.print(wall);
-					} else if (map[i][j] instanceof Space){
-						System.out.print(space);		
-					} else if(map[i][j] instanceof Player) {
-						System.out.print(player);
-					}
-				} 
-			}
-			System.out.println();
-		}
-		System.out.println();
-
-	}
-
 
 }
