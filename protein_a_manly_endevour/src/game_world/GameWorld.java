@@ -7,13 +7,21 @@ import java.awt.event.MouseListener;
 
 import map.Location;
 import map.Map;
+import map.MapThread;
 import map.RandomMazeMap;
 import player.Player;
 import portal.Portal;
-import Main.MapThread;
 import event_handler.EventManager;
 import event_handler.InteractionEvent;
 
+/**
+ * Manages the map, catches all input events, bundles them off to to
+ * the event manager.
+ * 
+ * Also instantiates the portal manager - is the gameplay manager.
+ * @author Nathaiel, Snean
+ *
+ */
 public class GameWorld implements KeyListener, MouseListener {
 
 	Player player;
@@ -36,12 +44,13 @@ public class GameWorld implements KeyListener, MouseListener {
 		}
 		return instance;
 	}
+	
 	private GameWorld() {
 		eventManager = new EventManager();
 		portalManager = new PortalManager();
 		map = new RandomMazeMap(30, 30, 10, 10);
 		Location pS = map.getPlayerStart();
-		player = new Player(pS.getY(), pS.getX());
+		player = new Player(pS.getX(), pS.getY());
 		r = new MapThread();
 		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
 		Thread t= new Thread(r);
@@ -109,12 +118,14 @@ public class GameWorld implements KeyListener, MouseListener {
 		// TODO Auto-generated method stub
 		ie = new InteractionEvent(0, toHandle, null);
 		eventManager.handleEvent(ie);
+		refresh();
 	}
 	private void handleEvent(KeyEvent toHandle) {
 		// TODO Auto-generated method stub
 		ie = new InteractionEvent(0, null, toHandle);
 		player.acceptInteraction(ie);
 		eventManager.handleEvent(ie);
+		refresh();
 	}
 	public void refresh() {
 		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));

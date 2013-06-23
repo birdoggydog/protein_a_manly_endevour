@@ -2,6 +2,13 @@ package map;
 
 import portal.AbstractPortal;
 
+/**
+ * abstract concept of a place on the map.
+ * can be interacted with, has x and y values
+ * and is or is not passable.
+ * @author root
+ *
+ */
 public abstract class Location extends AbstractPortal {
 
 	public boolean passable; 

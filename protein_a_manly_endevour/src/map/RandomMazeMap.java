@@ -42,6 +42,7 @@ public class RandomMazeMap extends Map {
 					map[walls[nextRm].getY()][walls[nextRm].getX()] = new Space(walls[nextRm].getX(),walls[nextRm].getY());
 					startRoom = map[walls[nextRm].getY()][walls[nextRm].getX()];
 					foundWall = true;
+					// ?????
 					spaces.add((Space) map[startRoom.getY()][startRoom.getX()]);
 				}
 			} if(!foundWall) {
