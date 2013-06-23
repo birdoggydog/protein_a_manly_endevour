@@ -1,5 +1,6 @@
 package game_world;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -46,11 +47,12 @@ public class GameWorld implements KeyListener, MouseListener {
 	}
 	
 	private GameWorld() {
+	//	Graphics graphics = new Graphics();
 		eventManager = new EventManager();
 		portalManager = new PortalManager();
 		map = new RandomMazeMap(30, 30, 10, 10);
 		Location pS = map.getPlayerStart();
-		player = new Player(pS.getX(), pS.getY());
+		player = new Player(pS.getX(), pS.getY(), map);
 		r = new MapThread();
 		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
 		Thread t= new Thread(r);

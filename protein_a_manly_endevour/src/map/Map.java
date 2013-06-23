@@ -112,4 +112,12 @@ public abstract class Map {
 		}
 		return cpM;
 	}
+	public boolean canPlace(int x, int y) {
+		return map[y][x].passable;
+	}
+	public Location getLocation(int x, int y) {
+		
+		Location ret = map[y][x];
+		return ret;
+	}
 }
