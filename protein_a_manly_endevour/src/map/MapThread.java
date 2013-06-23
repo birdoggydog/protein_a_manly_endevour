@@ -10,6 +10,7 @@ import portal.Portal;
 public class MapThread implements Runnable {
 
 	Map map;
+	Graphics mGraphics;
 	Portal[][] copyMap;
 	AbstractMobile[] mobs;
 	boolean shouldDraw = true;
@@ -26,7 +27,7 @@ public class MapThread implements Runnable {
 
 	@Override
 	public void run() {
-		Graphics g = new Graphics(map.map);
+		
 		while(true) {
 			if(this.map!= null) {
 				//		/		printMap();
@@ -47,7 +48,7 @@ public class MapThread implements Runnable {
 					}
 					map.addPortals(mobs, copyMap);
 
-					g.drawMap(copyMap);
+					mGraphics.drawMap(copyMap);
 					shouldDraw = false;
 
 				}
@@ -60,6 +61,10 @@ public class MapThread implements Runnable {
 	}
 	public void setPlayer(Player play) {
 		player = play;
+	}
+	public void setGraphics(Graphics graphics) {
+		mGraphics = graphics;// TODO Auto-generated method stub
+		
 	}
 
 }

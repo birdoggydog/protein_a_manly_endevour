@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import display.Graphics;
+
 import map.Location;
 import map.Map;
 import map.MapThread;
@@ -35,8 +37,9 @@ public class GameWorld implements KeyListener, MouseListener {
 	InteractionEvent ie;
 	ArrayList<AbstractMobile> mobiles;
 	AbstractMobile[] mobs;
+	Graphics graphics;
 	Map map;
-	int maxMobs = 40;
+	int maxMobs =0;
 	// sean insisted.
 	/**
 	 * GameWorld - this guy is in charge of everything.
@@ -52,12 +55,13 @@ public class GameWorld implements KeyListener, MouseListener {
 	}
 	
 	private GameWorld() {
-	//	Graphics graphics = new Graphics();
 		eventManager = new EventManager();
 		portalManager = new PortalManager();
 		mobiles = new ArrayList<AbstractMobile>();
 
-		map = new RandomMazeMap(30, 30, 10, 10);
+		map = new RandomMazeMap(15, 15, 10, 10);
+		Graphics graphics = new Graphics(map.getMap());
+
 		for(int i = 0; i<maxMobs; i++) {
 			Location loc = map.getPlaceableLocation();
 			if(loc!=null) {
@@ -74,6 +78,11 @@ public class GameWorld implements KeyListener, MouseListener {
 		r.setMap(map);
 		r.setPlayer(player);
 		r.setMobiles(mobiles);
+		graphics.setKeyListener(this);
+		graphics.setMouseListener(this);
+
+		r.setGraphics(graphics);
+		
 		Thread t= new Thread(r);
 		t.start();
 		eventManager.setPlayer(player);
@@ -83,46 +92,49 @@ public class GameWorld implements KeyListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		handleEvent( e);
+	//	handleEvent( e);
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		handleEvent( e);
+	//	handleEvent( e);
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		handleEvent( e);
+	//	handleEvent( e);
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		handleEvent( e);
+	//	handleEvent( e);
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		handleEvent( e);
+	//	handleEvent( e);
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println("woo!");
+		
 		handleEvent( e);
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		System.out.println("Weee!");
 		// TODO Auto-generated method stub
 		handleEvent( e);
 		
@@ -130,6 +142,8 @@ public class GameWorld implements KeyListener, MouseListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		System.out.println("Werrr!");
+
 		// TODO Auto-generated method stub
 		handleEvent( e);
 		

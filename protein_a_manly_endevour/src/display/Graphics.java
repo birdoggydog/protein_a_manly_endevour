@@ -1,10 +1,12 @@
 package display;
-import player.Player;
-import portal.Portal;
-import map.Location;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 import map.Space;
 import map.Wall;
 import mobiles.AbstractMobile;
+import player.Player;
+import portal.Portal;
 
 public class Graphics {
 
@@ -44,6 +46,19 @@ public class Graphics {
 			display += "\n";
 		}
 		return display;
+	}
+
+	public void setKeyListener(KeyListener gameWorld) {
+		d.addKeyListener(gameWorld);
+		
+		// TODO Auto-generated method stub
+		
+	}
+	public void setMouseListener(MouseListener gameWorld) {
+		
+		d.addMouseListener(gameWorld);
+		// TODO Auto-generated method stub
+		
 	}
 
 }

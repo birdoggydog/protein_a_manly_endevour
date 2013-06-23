@@ -125,7 +125,7 @@ public abstract class Map {
 		Location ret = map[y][x];
 		return ret;
 	}
-	public Location getPlaceableLocation() {
+	public Location getPlaceableLocation() 	{
 		boolean notFound = true;
 		int i = 0;
 		Location loc = null;
