@@ -53,6 +53,11 @@ public class Player extends AbstractMobile {
 	public boolean die() {
 		return false;
 	}
+	@Override
+	public boolean doMaMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 }

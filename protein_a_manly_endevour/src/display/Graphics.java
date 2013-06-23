@@ -4,6 +4,7 @@ import portal.Portal;
 import map.Location;
 import map.Space;
 import map.Wall;
+import mobiles.AbstractMobile;
 
 public class Graphics {
 
@@ -35,6 +36,8 @@ public class Graphics {
 						display += space;
 					} else if(map[i][j] instanceof Player) {
 						display += player;
+					} else if (map[i][j] instanceof AbstractMobile) {
+						display+=((AbstractMobile) map[i][j]).getIcon();
 					}
 				} 
 			}

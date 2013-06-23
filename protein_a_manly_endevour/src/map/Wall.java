@@ -6,6 +6,6 @@ public class Wall extends Location{
 	 */
 	public Wall(int x, int y) {
 		super(x, y);
-		passable = true;
+		passable = false;
 	}
 }

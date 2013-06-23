@@ -4,8 +4,8 @@ import map.Location;
 import map.Map;
 import portal.AbstractPortal;
 
-public class AbstractMobile extends AbstractPortal {
-
+public abstract class AbstractMobile extends AbstractPortal {
+	String icon;
 	Map mMap;
 	/**
 	 * Basic implementation for all moving things.  Not just living ones!
@@ -51,4 +51,8 @@ public class AbstractMobile extends AbstractPortal {
 	public boolean die() {
 		return false;
 	}
+	public String getIcon() {
+		return this.icon;
+	}
+	public abstract boolean doMaMove();
 }

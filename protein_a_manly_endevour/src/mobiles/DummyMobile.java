@@ -1,20 +1,23 @@
 package mobiles;
 
+import java.util.Random;
+
 import map.Location;
 import map.Map;
 
 public class DummyMobile extends AbstractMobile{
-
+	Random rand;
 	public DummyMobile(int x, int y, Map map) {
 		super(x, y, map);
+		icon = "@";
+		rand = new Random();
 	}
-	public void doMahMove() {
+	@Override
+	public boolean doMaMove() {
 		Location[] adj = getAdj();
-		for (Location loc: adj) {
-			if(move(loc.getX(),loc.getY())) {
-				break;
-			}
-		}
-	}
+		Location loc = adj[rand.nextInt(adj.length)];
+		return move(loc.getX(),loc.getY());
+
+	}	
 
 }

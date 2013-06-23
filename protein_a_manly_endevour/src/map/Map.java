@@ -125,4 +125,19 @@ public abstract class Map {
 		Location ret = map[y][x];
 		return ret;
 	}
+	public Location getPlaceableLocation() {
+		boolean notFound = true;
+		int i = 0;
+		Location loc = null;
+		while(notFound && i< 50){
+			int x = rand.nextInt(width);
+			int y = rand.nextInt(height);
+			if(map[y][x].passable) {
+				loc = map[y][x];
+				notFound = false;
+			}
+			i++;
+		}
+		return loc;
+	}
 }

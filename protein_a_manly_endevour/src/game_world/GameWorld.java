@@ -1,15 +1,17 @@
 package game_world;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import map.Location;
 import map.Map;
 import map.MapThread;
 import map.RandomMazeMap;
+import mobiles.AbstractMobile;
+import mobiles.DummyMobile;
 import player.Player;
 import portal.Portal;
 import event_handler.EventManager;
@@ -31,7 +33,10 @@ public class GameWorld implements KeyListener, MouseListener {
 	static GameWorld instance;
 	MapThread r;
 	InteractionEvent ie;
+	ArrayList<AbstractMobile> mobiles;
+	AbstractMobile[] mobs;
 	Map map;
+	int maxMobs = 40;
 	// sean insisted.
 	/**
 	 * GameWorld - this guy is in charge of everything.
@@ -50,11 +55,25 @@ public class GameWorld implements KeyListener, MouseListener {
 	//	Graphics graphics = new Graphics();
 		eventManager = new EventManager();
 		portalManager = new PortalManager();
+		mobiles = new ArrayList<AbstractMobile>();
+
 		map = new RandomMazeMap(30, 30, 10, 10);
+		for(int i = 0; i<maxMobs; i++) {
+			Location loc = map.getPlaceableLocation();
+			if(loc!=null) {
+				mobiles.add(new DummyMobile(loc.getX(),loc.getY(), map));
+			}
+		}
 		Location pS = map.getPlayerStart();
 		player = new Player(pS.getX(), pS.getY(), map);
 		r = new MapThread();
-		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
+//		Portal[][] copyMap = map.getCopyMap();
+//		map.addPortals(new Portal[]{player}, copyMap);
+		
+//		map.addPortals(mobiles.toArray(new Portal[mobiles.size()]), copyMap);
+		r.setMap(map);
+		r.setPlayer(player);
+		r.setMobiles(mobiles);
 		Thread t= new Thread(r);
 		t.start();
 		eventManager.setPlayer(player);
@@ -130,6 +149,6 @@ public class GameWorld implements KeyListener, MouseListener {
 		refresh();
 	}
 	public void refresh() {
-		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
+//		r.setMap(map.addPortals(new Portal[]{player}, map.getCopyMap()));
 	}
 }
