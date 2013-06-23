@@ -5,8 +5,8 @@ import game_world.GameWorld;
 
 public class AbstractPortal implements Portal{
 	// reference to gameWorld
-	int x;
-	int y;
+	protected int x;
+	protected int y;
 	GameWorld game;
 	@Override
 	public boolean acceptInteraction(InteractionEvent e) {

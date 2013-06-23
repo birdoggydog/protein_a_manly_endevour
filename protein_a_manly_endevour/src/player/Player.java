@@ -7,15 +7,13 @@ import event_handler.InteractionEvent;
 
 public class Player extends AbstractPortal {
 
-	int x;
-	int y;
 	int health;
 	int fat;
 	int environment;
-	public Player(int x, int y){
-		
-		this.x = x;
-		this.y = y;
+	public Player(int ex, int why){
+		super();
+		x = ex;
+		y = why;
 	}
  	@Override
 	public boolean acceptInteraction(InteractionEvent e) {

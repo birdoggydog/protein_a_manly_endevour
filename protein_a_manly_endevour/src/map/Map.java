@@ -26,6 +26,9 @@ public abstract class Map {
 		spaces = new ArrayList<Space>();
 		fill();
 	}
+	/**
+	 * create a blank map.
+	 */
 	public void fill() {
 		for (int i =0; i < height; i++) {
 			for (int j = 0; j<width; j++) {
@@ -34,6 +37,11 @@ public abstract class Map {
 			}
 		}
 	}
+	/**
+	 * get alll adjacent tiles 
+	 * @param loc
+	 * @return
+	 */
 	public Location[] getAdjacent(Location loc) {
 		int x= loc.getX();
 		int y= loc.getY();
@@ -47,6 +55,9 @@ public abstract class Map {
 
 		return adjs.toArray(new Location[adjs.size()]);		
 	}
+	/** create a list of all walls in the map.
+	 *
+	 */
 	public Location[] getWalls(Location[] adj) { 
 		ArrayList<Location> walls = new ArrayList<Location>();
 		for(Location x : adj) {
@@ -57,9 +68,17 @@ public abstract class Map {
 
 		return  walls.toArray(new Location[walls.size()]);
 	}
+	/** 
+	 * 
+	 * @return map
+	 */
 	public Location[][] getMap() {
 		return map;
 	}
+	/**
+	 * create a deep copy of the map for manipulation.
+	 * @return
+	 */
 	public Portal[][] getCopyMap() {
 		
 		Portal[][] funkytown = new Portal[height][width];
@@ -72,11 +91,21 @@ public abstract class Map {
 
 
 	}
+	/**
+	 * generate a start location for the player.
+	 * @return
+	 */
 	public  Location getPlayerStart() {
 		
 		Location playerStart = spaces.get(rand.nextInt(spaces.size()));
 		return playerStart;
 	}
+	/**
+	 * add some collection of portals to a copy of the actual map.
+	 * @param toDraw
+	 * @param cpM
+	 * @return
+	 */
 	public Portal[][] addPortals(Portal[] toDraw, Portal[][] cpM) {
 		for(Portal p : toDraw) {
 			cpM[p.getY()][p.getX()] = p;
