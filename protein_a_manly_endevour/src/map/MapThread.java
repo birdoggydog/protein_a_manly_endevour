@@ -36,7 +36,7 @@ public class MapThread implements Runnable {
 					}
 					shouldDraw = true;
 				} else {
-					g.processDisplay(map);
+					g.drawMap(map);
 					shouldDraw = false;
 
 				}

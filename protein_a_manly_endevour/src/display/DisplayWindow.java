@@ -27,8 +27,8 @@ public class DisplayWindow extends JFrame {
 		dungeonArea = new JTextArea(height,width);
 		dungeonArea.setEditable(false);
 		dungeonArea.setFont(courier);
-		dungeonArea.setForeground(Color.BLACK);
-		dungeonArea.setBackground(Color.BLUE);
+//		dungeonArea.setForeground(Color.BLACK);
+//		dungeonArea.setBackground(Color.BLUE);
 		textWindow.add(dungeonArea);
 		add(textWindow);
 		setVisible(true);
