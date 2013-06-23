@@ -20,13 +20,11 @@ public class Graphics {
 		d = new DisplayWindow(width, height);
 	}
 
-	public void drawMap(Location[][] map){
-		
-		
+	public void drawMap(Portal[][] map){
 		d.renderMap(processDisplay(map));
 	}
 	
-	public String processDisplay(Portal[][] map) {
+	private String processDisplay(Portal[][] map) {
 		String display = "";
 		for (int i = 0; i<map.length; i++) {
 			for (int j = 0; j<map[0].length; j++) {
@@ -39,10 +37,9 @@ public class Graphics {
 						display += player;
 					}
 				} 
-				display += "\n";
 			}
+			display += "\n";
 		}
-		System.out.print(display);
 		return display;
 	}
 
