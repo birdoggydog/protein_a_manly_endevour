@@ -3,6 +3,7 @@ package map;
 import java.util.ArrayList;
 import java.util.Random;
 
+import portal.AbstractPortal;
 import portal.Portal;
 
 public abstract class Map {
@@ -87,8 +88,8 @@ public abstract class Map {
 	 * create a deep copy of the map for manipulation.
 	 * @return
 	 */
-	public Portal[][] getCopyMap() {		
-		Portal[][] funkytown = new Portal[height][width];
+	public AbstractPortal[][] getCopyMap() {		
+		AbstractPortal[][] funkytown = new AbstractPortal[height][width];
 		for (int i = 0; i<height; i++) {
 			for (int j = 0; j<width; j++) {
 				funkytown[i][j]= map[i][j];
@@ -119,6 +120,9 @@ public abstract class Map {
 	}
 	public boolean canPlace(int x, int y) {
 		return map[y][x].passable;
+	}
+	public boolean canPlace(int x, int y, AbstractPortal[][] tmpMap) {
+		return canPlace(x,y)&&tmpMap[y][x].passable;
 	}
 	public Location getLocation(int x, int y) {
 		

@@ -11,7 +11,6 @@ import portal.AbstractPortal;
  */
 public abstract class Location extends AbstractPortal {
 
-	public boolean passable; 
 	private int x;
 	private int y;
 	/**

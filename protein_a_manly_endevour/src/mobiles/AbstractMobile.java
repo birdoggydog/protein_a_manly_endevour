@@ -7,6 +7,12 @@ import portal.AbstractPortal;
 public abstract class AbstractMobile extends AbstractPortal {
 	String icon;
 	Map mMap;
+	protected int speed = 2;
+	//int FramesPerUpdate = fps/speed
+	int framesPerUpdate = 60/speed;
+	int framesSinceUpdate = 60;
+	AbstractPortal[][] drawnMap;
+	protected boolean shouldUpdate = false;
 	/**
 	 * Basic implementation for all moving things.  Not just living ones!
 	 * @param x
@@ -27,12 +33,15 @@ public abstract class AbstractMobile extends AbstractPortal {
 		if(canMove(newX, newY)) {
 			this.x = newX;
 			this.y = newY;
+			shouldUpdate=false;
+			framesSinceUpdate=0;
+
 			return true;
 		}
 		return false;
 	}
 	public boolean canMove(int ex, int yy) {
-		return mMap.canPlace(ex, yy);
+		return mMap.canPlace(ex, yy, drawnMap);
 	}
 	public Location[] getAdj() {
 		return mMap.getAdjacent(mMap.getLocation(x, y));
@@ -55,4 +64,20 @@ public abstract class AbstractMobile extends AbstractPortal {
 		return this.icon;
 	}
 	public abstract boolean doMaMove();
+	
+	public boolean shouldUpdate() {
+		if(shouldUpdate) {
+			
+		} else if(framesSinceUpdate>framesPerUpdate) {
+			shouldUpdate=true;
+			framesSinceUpdate=0;
+		} else {
+			shouldUpdate = false;
+			framesSinceUpdate++;
+		}
+		return shouldUpdate;
+	}	
+	public void setDrawnMap(AbstractPortal[][] mmaapp) {
+		drawnMap=mmaapp;
+	}
 }

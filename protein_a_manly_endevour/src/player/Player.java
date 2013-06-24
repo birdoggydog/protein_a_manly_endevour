@@ -16,6 +16,8 @@ public class Player extends AbstractMobile {
 		health = 100;
 		fat = 25;
 		environment = 10;
+		passable = false;
+	
 	}
 	/**
 	 * Currently always returning true. (i.e. eat event).
@@ -23,24 +25,28 @@ public class Player extends AbstractMobile {
 	@Override
 	public boolean acceptInteraction(InteractionEvent e) {
 		// TODO Auto-generated method stub
-		int ex = getDelX(e.getKeyEvent());
-		int yy = getDelY(e.getKeyEvent());
-		move(ex,yy);
+		
+		if(shouldUpdate) {
+			int ex = getDelX(e.getKeyEvent());
+			int yy = getDelY(e.getKeyEvent());
+			move(x+ex,y+yy);
+		}
 		return true;
 	}
 	private int getDelY(KeyEvent keyEvent) {
-		if(keyEvent.getKeyCode() ==KeyEvent.VK_KP_DOWN) {
-			return -1;
-		} else if (keyEvent.getKeyCode() ==KeyEvent.VK_KP_UP) {
+		System.out.println(keyEvent.getKeyCode());
+		if(keyEvent.getKeyCode() ==KeyEvent.VK_DOWN) {
 			return 1;
+		} else if (keyEvent.getKeyCode() ==KeyEvent.VK_UP) {
+			return -1;
 		}
 		return 0;
 	}
 	private int getDelX(KeyEvent keyEvent) {
 		// TODO Auto-generated method stub
-		if(keyEvent.getKeyCode() ==KeyEvent.VK_KP_LEFT) {
+		if(keyEvent.getKeyCode() ==KeyEvent.VK_LEFT) {
 			return -1;
-		} else if (keyEvent.getKeyCode() ==KeyEvent.VK_KP_RIGHT) {
+		} else if (keyEvent.getKeyCode() ==KeyEvent.VK_RIGHT) {
 			return 1;
 		}
 		return 0;

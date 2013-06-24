@@ -7,6 +7,7 @@ public class AbstractPortal implements Portal{
 	// reference to gameWorld
 	protected int x;
 	protected int y;
+	public boolean passable = true;
 	GameWorld game;
 	@Override
 	public boolean acceptInteraction(InteractionEvent e) {

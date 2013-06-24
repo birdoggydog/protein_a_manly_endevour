@@ -12,7 +12,7 @@ public class Graphics {
 
 	String wall = "#";
 	String space = " "; 
-	String player = "O";
+	String player = "@";
 	DisplayWindow d;
 	
 	public Graphics(Portal[][] map){
@@ -21,6 +21,7 @@ public class Graphics {
 		width = map[0].length;
 
 		d = new DisplayWindow(width, height);
+		d.setFocusable(true);
 	}
 
 	public void drawMap(Portal[][] map){
@@ -50,15 +51,9 @@ public class Graphics {
 
 	public void setKeyListener(KeyListener gameWorld) {
 		d.addKeyListener(gameWorld);
-		
-		// TODO Auto-generated method stub
-		
 	}
 	public void setMouseListener(MouseListener gameWorld) {
-		
 		d.addMouseListener(gameWorld);
-		// TODO Auto-generated method stub
-		
-	}
+		}
 
 }

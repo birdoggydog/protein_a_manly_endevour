@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import mobiles.AbstractMobile;
 import display.Graphics;
 import player.Player;
+import portal.AbstractPortal;
 import portal.Portal;
 
 public class MapThread implements Runnable {
-
 	Map map;
 	Graphics mGraphics;
-	Portal[][] copyMap;
+	AbstractPortal[][] copyMap;
+	AbstractPortal[][] oldMap;
+
 	AbstractMobile[] mobs;
 	boolean shouldDraw = true;
 	Player player;
@@ -27,27 +29,32 @@ public class MapThread implements Runnable {
 
 	@Override
 	public void run() {
-		
+		AbstractPortal[][] copyMap = (AbstractPortal[][]) map.getCopyMap();
+
 		while(true) {
 			if(this.map!= null) {
 				//		/		printMap();
 				if(!shouldDraw) {
 					
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(17);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					shouldDraw = true;
 				} else {
-					Portal[][] copyMap = map.getCopyMap();
-					map.addPortals(new Portal[]{player}, copyMap);	
+					oldMap = copyMap;
+					copyMap = (AbstractPortal[][]) map.getCopyMap();
+					player.setDrawnMap(oldMap);
+					player.shouldUpdate();
+					map.addPortals(new Portal[]{player}, copyMap);						
 					for(AbstractMobile mob: mobs) {
-						mob.doMaMove();
+						mob.setDrawnMap(copyMap);
+						if(mob.shouldUpdate())
+							mob.doMaMove();						
 					}
 					map.addPortals(mobs, copyMap);
-
 					mGraphics.drawMap(copyMap);
 					shouldDraw = false;
 
@@ -64,7 +71,6 @@ public class MapThread implements Runnable {
 	}
 	public void setGraphics(Graphics graphics) {
 		mGraphics = graphics;// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -9,7 +9,8 @@ public class DummyMobile extends AbstractMobile{
 	Random rand;
 	public DummyMobile(int x, int y, Map map) {
 		super(x, y, map);
-		icon = "@";
+		icon = "+";
+		passable = false;
 		rand = new Random();
 	}
 	@Override
