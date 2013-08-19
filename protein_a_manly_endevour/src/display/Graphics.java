@@ -24,11 +24,11 @@ public class Graphics {
 		d.setFocusable(true);
 	}
 
+	/**
+	 * Processes a portal[][] and sends it to displayWindow
+	 * @param map	
+	 */
 	public void drawMap(Portal[][] map){
-		d.renderMap(processDisplay(map));
-	}
-	
-	private String processDisplay(Portal[][] map) {
 		String display = "";
 		for (int i = 0; i<map.length; i++) {
 			for (int j = 0; j<map[0].length; j++) {
@@ -46,7 +46,16 @@ public class Graphics {
 			}
 			display += "\n";
 		}
-		return display;
+		d.renderMap(display);
+	}
+	
+	public String renderStat(int stat){
+		char barCh = '#';
+		String statBar = "";
+		for (int i = 0; i < stat; i++){
+			statBar+=barCh;
+		}
+		return statBar;
 	}
 
 	public void setKeyListener(KeyListener gameWorld) {
@@ -55,5 +64,9 @@ public class Graphics {
 	public void setMouseListener(MouseListener gameWorld) {
 		d.addMouseListener(gameWorld);
 		}
-
+	
+	public void setHealth(int health){
+		d.setHealth((renderStat(health)));
+	}
+	
 }

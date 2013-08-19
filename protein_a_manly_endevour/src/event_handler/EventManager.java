@@ -1,7 +1,7 @@
 package event_handler;
 
 import java.awt.event.KeyEvent;
-
+import event_handler.InteractionEvent;
 import player.Player;
 
 public class EventManager {

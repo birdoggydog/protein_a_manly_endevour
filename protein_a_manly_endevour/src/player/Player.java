@@ -14,7 +14,8 @@ public class Player extends AbstractMobile {
 		fat = 25;
 		environment = 10;
 		passable = false;
-
+		speed = 5;
+	
 	}
 	/**
 	 * Currently always returning true. (i.e. eat event).
