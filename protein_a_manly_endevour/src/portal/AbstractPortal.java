@@ -3,18 +3,14 @@ package portal;
 import event_handler.InteractionEvent;
 import game_world.GameWorld;
 
-public class AbstractPortal implements Portal{
+public abstract class AbstractPortal implements Portal{
 	// reference to gameWorld
 	protected int x;
 	protected int y;
 	public boolean passable = true;
 	GameWorld game;
 	@Override
-	public boolean acceptInteraction(InteractionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+	public abstract boolean acceptInteraction(InteractionEvent e);
 	void setGameWorld(GameWorld game, int x, int y) {
 		this.game = game;
 	}

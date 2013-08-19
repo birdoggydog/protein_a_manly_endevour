@@ -2,11 +2,14 @@ package mobiles;
 
 import java.util.Random;
 
+import event_handler.InteractionEvent;
+
 import map.Location;
 import map.Map;
 
-public class DummyMobile extends AbstractMobile{
+public class DummyMobile extends AbstractMobile  {
 	Random rand;
+	
 	public DummyMobile(int x, int y, Map map) {
 		super(x, y, map);
 		icon = "+";
@@ -18,7 +21,6 @@ public class DummyMobile extends AbstractMobile{
 		Location[] adj = getAdj();
 		Location loc = adj[rand.nextInt(adj.length)];
 		return move(loc.getX(),loc.getY());
-
 	}	
 
 }

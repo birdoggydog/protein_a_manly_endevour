@@ -1,5 +1,6 @@
 package mobiles;
 
+import event_handler.InteractionEvent;
 import map.Location;
 import map.Map;
 import portal.AbstractPortal;
@@ -7,6 +8,10 @@ import portal.AbstractPortal;
 public abstract class AbstractMobile extends AbstractPortal {
 	String icon;
 	Map mMap;
+	protected int health = 20;
+	int damage = 10;
+	protected int fat = 20;
+	protected int environment=20;
 	protected int speed = 2;
 	//int FramesPerUpdate = fps/speed
 	int framesPerUpdate = 60/speed;
@@ -19,10 +24,36 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * @param y
 	 */
 	public AbstractMobile(int x, int y, Map map) {
+		super();
 		this.x = x;
 		this.y = y;
 		mMap = map;
 	}
+	@Override
+	public boolean acceptInteraction(InteractionEvent e) {
+		System.out.println("GettingFingeredAbstractly");
+
+		switch(e.getType()) {
+		case(InteractionEvent.MOUSE):
+			break;
+		case(InteractionEvent.EAT):
+			System.out.println("Just ate Abstractly.");
+
+		int damage = e.getResultValue();
+		health -= damage;
+		fat -=damage;
+		InteractionEvent ret = new InteractionEvent(InteractionEvent.EAT_RESULT,this);
+		e.setResultValue(damage);
+		e.getSender().acceptInteraction(ret);
+		break;
+		case(InteractionEvent.EAT_RESULT):
+			System.out.println("Just ate Abstractly.");
+		this.health+=e.getResultValue();
+		this.fat+=e.getResultValue();		
+		break;
+		}
+		return true;
+	};
 	/**
 	 * Update the to the new location, stract implementions will handle
 	 * how to determine and validity etc... of new locs
@@ -37,8 +68,9 @@ public abstract class AbstractMobile extends AbstractPortal {
 			framesSinceUpdate=0;
 
 			return true;
+		} else {
+			return finger(x,y);
 		}
-		return false;
 	}
 	public boolean canMove(int ex, int yy) {
 		return mMap.canPlace(ex, yy, drawnMap);
@@ -50,7 +82,11 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * Send out your interaction
 	 * @return
 	 */
-	public boolean finger() {
+	public boolean finger(int ex, int yh) {
+		AbstractPortal p = drawnMap[yh][ex];
+		InteractionEvent e = new InteractionEvent(InteractionEvent.EAT_RESULT,this);
+		e.setResultValue(damage);
+		p.acceptInteraction(e);
 		return false;
 	}
 	/**
@@ -64,10 +100,10 @@ public abstract class AbstractMobile extends AbstractPortal {
 		return this.icon;
 	}
 	public abstract boolean doMaMove();
-	
+
 	public boolean shouldUpdate() {
 		if(shouldUpdate) {
-			
+
 		} else if(framesSinceUpdate>framesPerUpdate) {
 			shouldUpdate=true;
 			framesSinceUpdate=0;

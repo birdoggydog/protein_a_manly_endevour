@@ -42,7 +42,7 @@ public class GameWorld implements KeyListener, MouseListener {
 	AbstractMobile[] mobs;
 	Graphics graphics;
 	Map map;
-	int maxMobs =10;
+	int maxMobs =100;
 	// sean insisted.
 	/**
 	 * GameWorld - this guy is in charge of everything.
@@ -64,7 +64,7 @@ public class GameWorld implements KeyListener, MouseListener {
 		portalManager = new PortalManager();
 		mobiles = new ArrayList<AbstractMobile>();
 
-		map = new RandomMazeMap(15, 15, 10, 10);
+		map = new RandomMazeMap(25, 25, 10, 10);
 		Graphics graphics = new Graphics(map.getMap());
 
 		for(int i = 0; i<maxMobs; i++) {
