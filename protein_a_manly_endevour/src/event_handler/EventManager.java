@@ -20,7 +20,12 @@ public class EventManager {
 			if(key== KeyEvent.VK_KP_UP || 
 					key==KeyEvent.VK_KP_DOWN ||
 					key== KeyEvent.VK_KP_LEFT|| 
-					key== KeyEvent.VK_KP_RIGHT){
+					key== KeyEvent.VK_KP_RIGHT ||
+					key == KeyEvent.VK_UP || 
+					key == KeyEvent.VK_DOWN|| 
+					key == KeyEvent.VK_LEFT|| 
+					key == KeyEvent.VK_RIGHT){
+				System.out.println("wtf?");
 				player.acceptInteraction(e);
 			}
 		}

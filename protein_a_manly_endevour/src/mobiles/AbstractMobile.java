@@ -83,6 +83,7 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * @return
 	 */
 	public boolean finger(int ex, int yh) {
+	//	System.out.println("gettin fingered");
 		AbstractPortal p = drawnMap[yh][ex];
 		InteractionEvent e = new InteractionEvent(InteractionEvent.EAT_RESULT,this);
 		e.setResultValue(damage);
@@ -94,6 +95,7 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * @return
 	 */
 	public boolean die() {
+		System.out.println("Creature Dead!");
 		return false;
 	}
 	public String getIcon() {

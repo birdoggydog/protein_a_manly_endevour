@@ -148,8 +148,8 @@ public class GameWorld implements KeyListener, MouseListener {
 	private void handleEvent(KeyEvent toHandle) {
 		// TODO Auto-generated method stub
 
-		ie = new InteractionEvent(0, null, toHandle);
-		player.acceptInteraction(ie);
+		ie = new InteractionEvent(InteractionEvent.KYB, null, toHandle);
+		//player.acceptInteraction(ie);KYB
 		eventManager.handleEvent(ie);
 	}
 	public void refresh() {
