@@ -14,7 +14,7 @@ public class MapThread implements Runnable {
 	AbstractPortal[][] copyMap;
 	AbstractPortal[][] oldMap;
 
-	AbstractMobile[] mobs;
+	ArrayList<AbstractMobile> mobs;
 	boolean shouldDraw = true;
 	Player player;
 	public synchronized void setShouldDraw(boolean b) {
@@ -44,17 +44,33 @@ public class MapThread implements Runnable {
 					}
 					shouldDraw = true;
 				} else {
+					ArrayList<Integer> toremove = new ArrayList<Integer>();
 					oldMap = copyMap;
 					copyMap = (AbstractPortal[][]) map.getCopyMap();
 					player.setDrawnMap(oldMap);
 					player.shouldUpdate();
+					map.setFingerablePorts(mobs);
+				//	map.setFingerablePorts(player);
+
 					map.addPortals(new Portal[]{player}, copyMap);						
-					for(AbstractMobile mob: mobs) {
-						mob.setDrawnMap(copyMap);
-						if(mob.shouldUpdate())
-							mob.doMaMove();						
+//					map.addPortals(mobs.toArray(new Portal[mobs.size()]), copyMap);
+					for(int i = 0; i<mobs.size(); i++) {
+						AbstractMobile mob = mobs.get(i);
+						if(mob!=null && mob.isAlive()){
+							mob.setDrawnMap(copyMap);
+							if(mob.shouldUpdate())
+								mob.doMaMove();
+						} else {
+							toremove.add(i);
+						}
 					}
-					map.addPortals(mobs, copyMap);
+					for(Integer j: toremove) {
+						System.out.println("removing dead things");
+						AbstractPortal mob = mobs.get(j);
+						mobs.remove(mob);
+					}
+					
+					map.addPortals(mobs.toArray(new Portal[mobs.size()]), copyMap);
 					mGraphics.drawMap(copyMap);
 					shouldDraw = false;
 
@@ -63,8 +79,7 @@ public class MapThread implements Runnable {
 		}
 	}
 	public void setMobiles(ArrayList<AbstractMobile> mobiles) {
-		mobs = mobiles.toArray(new AbstractMobile[mobiles.size()]);
-		
+		mobs = mobiles;
 	}
 	public void setPlayer(Player play) {
 		player = play;

@@ -3,6 +3,8 @@ package map;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mobiles.AbstractMobile;
+
 import portal.AbstractPortal;
 import portal.Portal;
 
@@ -13,7 +15,9 @@ public abstract class Map {
 	int space_density;
 	int portal_density;
 	ArrayList<Portal> portals;
+	ArrayList<AbstractPortal>[][] fingerablePorts;
 	Location[][] map;
+	AbstractPortal[][] copyMap;
 
 	ArrayList<Space> spaces;
 
@@ -23,9 +27,18 @@ public abstract class Map {
 		space_density=spaDen;
 		porDen=portal_density;
 		map = new Location[height][width];
+		fingerablePorts = new ArrayList[height][width];
+		setUpFingerables();
 		rand = new Random();		
 		spaces = new ArrayList<Space>();
 		fill();
+	}
+	public void setUpFingerables() {
+		for(int h = 0; h<height; h++) {
+			for(int j = 0; j<width; j++) {
+				fingerablePorts[h][j] = new ArrayList<AbstractPortal>();
+			}
+		}
 	}
 	/**
 	 * create a blank map.
@@ -43,6 +56,12 @@ public abstract class Map {
 	 * @param loc
 	 * @return
 	 */
+	public void setFingerablePorts(ArrayList<AbstractMobile> mobs) {
+		setUpFingerables();
+		for(AbstractPortal port:mobs) {
+			fingerablePorts[port.getY()][port.getX()].add(port);
+		}
+	}
 	public Location[] getAdjacent(Location loc) {
 		int x= loc.getX();
 		int y= loc.getY();
@@ -143,5 +162,22 @@ public abstract class Map {
 			i++;
 		}
 		return loc;
+	}
+	public AbstractPortal[] getFingerables(int x, int y) {
+			ArrayList<AbstractPortal> ports = new ArrayList<AbstractPortal>();
+//
+			ports.add(map[y][x]);
+			ports.addAll(fingerablePorts[y][x]);
+			return ports.toArray(new AbstractPortal[ports.size()]);
+	}
+	public void setCpMap(AbstractPortal[][] copyMap) {
+		this.copyMap = copyMap;// TODO Auto-generated method stub
+		
+	}
+	public void setFingerablePorts(AbstractMobile[] mobs) {
+		for(AbstractPortal port: mobs) {
+			fingerablePorts[port.getY()][port.getX()].add(port);
+		}
+		
 	}
 }

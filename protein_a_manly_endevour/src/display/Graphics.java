@@ -66,7 +66,7 @@ public class Graphics {
 		}
 	
 	public void setHealth(int health){
-		d.setHealth((renderStat(health)));
+	//	d.setHealth((renderStat(health)));
 	}
 	
 }

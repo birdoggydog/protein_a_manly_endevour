@@ -1,12 +1,13 @@
 package mobiles;
 
-import event_handler.InteractionEvent;
 import map.Location;
 import map.Map;
 import portal.AbstractPortal;
+import event_handler.InteractionEvent;
 
 public abstract class AbstractMobile extends AbstractPortal {
 	String icon;
+	private boolean alive;
 	Map mMap;
 	protected int health = 20;
 	int damage = 10;
@@ -28,6 +29,7 @@ public abstract class AbstractMobile extends AbstractPortal {
 		this.x = x;
 		this.y = y;
 		mMap = map;
+		setAlive(true);
 	}
 	@Override
 	public boolean acceptInteraction(InteractionEvent e) {
@@ -37,7 +39,7 @@ public abstract class AbstractMobile extends AbstractPortal {
 		case(InteractionEvent.MOUSE):
 			break;
 		case(InteractionEvent.EAT):
-			System.out.println("Just ate Abstractly.");
+			System.out.println("Just got ate Abstractly.");
 
 		int damage = e.getResultValue();
 		health -= damage;
@@ -45,6 +47,9 @@ public abstract class AbstractMobile extends AbstractPortal {
 		InteractionEvent ret = new InteractionEvent(InteractionEvent.EAT_RESULT,this);
 		e.setResultValue(damage);
 		e.getSender().acceptInteraction(ret);
+		if(health <= 0) {
+			die();
+		}
 		break;
 		case(InteractionEvent.EAT_RESULT):
 			System.out.println("Just ate Abstractly.");
@@ -66,9 +71,10 @@ public abstract class AbstractMobile extends AbstractPortal {
 			this.y = newY;
 			shouldUpdate=false;
 			framesSinceUpdate=0;
-
+//			System.out.println("I can always move!@");
 			return true;
 		} else {
+//			System.out.println("I'm about to finger something");
 			return finger(x,y);
 		}
 	}
@@ -83,11 +89,25 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * @return
 	 */
 	public boolean finger(int ex, int yh) {
-	//	System.out.println("gettin fingered");
-		AbstractPortal p = drawnMap[yh][ex];
-		InteractionEvent e = new InteractionEvent(InteractionEvent.EAT_RESULT,this);
-		e.setResultValue(damage);
-		p.acceptInteraction(e);
+		
+		//System.out.println("fingering");
+		AbstractPortal[] fingerables = mMap.getFingerables(yh,ex);
+		//System.out.println("finger"+fingerables.length);
+
+		if(fingerables!=null) {
+			InteractionEvent e = new InteractionEvent(InteractionEvent.EAT,this);
+			e.setResultValue(damage);
+			for(AbstractPortal p: fingerables){
+//				System.out.println(""+p.getClass());
+				if(p instanceof AbstractMobile) {
+	//				System.out.println("fingering from finger");
+					((AbstractMobile) p).acceptInteraction(e);
+					return true;
+				} else {
+					//System.out.println("can't find to finger");
+				}
+			}
+		}
 		return false;
 	}
 	/**
@@ -95,8 +115,9 @@ public abstract class AbstractMobile extends AbstractPortal {
 	 * @return
 	 */
 	public boolean die() {
+		setAlive(false);
 		System.out.println("Creature Dead!");
-		return false;
+		return true;
 	}
 	public String getIcon() {
 		return this.icon;
@@ -117,5 +138,11 @@ public abstract class AbstractMobile extends AbstractPortal {
 	}	
 	public void setDrawnMap(AbstractPortal[][] mmaapp) {
 		drawnMap=mmaapp;
+	}
+	public boolean isAlive() {
+		return alive;
+	}
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 }

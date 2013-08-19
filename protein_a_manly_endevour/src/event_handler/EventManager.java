@@ -25,7 +25,6 @@ public class EventManager {
 					key == KeyEvent.VK_DOWN|| 
 					key == KeyEvent.VK_LEFT|| 
 					key == KeyEvent.VK_RIGHT){
-				System.out.println("wtf?");
 				player.acceptInteraction(e);
 			}
 		}
